@@ -1,0 +1,39 @@
+WITH oi_changes AS (
+    SELECT
+        i.symbol,
+        t.trade_date,
+        t.open_int,
+        t.open_int
+          - LAG(t.open_int) OVER (
+                PARTITION BY i.symbol
+                ORDER BY t.trade_date
+            ) AS oi_change
+    FROM trades t
+    JOIN instrument i
+        ON t.instrument_id = i.instrument_id
+)
+SELECT
+    symbol,
+    SUM(oi_change) AS total_oi_change
+FROM oi_changes
+WHERE oi_change IS NOT NULL
+GROUP BY symbol
+ORDER BY total_oi_change DESC
+LIMIT 10;
+
+
+
+---------------------------
+
+"symbol","total_oi_change"
+"BPCL","19371600"
+"HEROMOTOCO","3250200"
+"STAR","2510400"
+"SBIN","1767000"
+"HINDALCO","388500"
+"DLF","372400"
+"HINDPETRO","310800"
+"ADANIPORTS","147500"
+"HDFC","99750"
+"TECHM","76800"
+

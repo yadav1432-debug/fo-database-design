@@ -1,0 +1,11 @@
+SELECT
+    e.exchange_name,
+    AVG(t.settle_pr) AS avg_settle_price
+FROM trades t
+JOIN exchange e ON t.exchange_id = e.exchange_id
+GROUP BY e.exchange_name;
+
+
+
+"exchange_name","avg_settle_price"
+"NSE","358.3553125531255313"
