@@ -1,0 +1,32 @@
+-Exchange table
+CREATE TABLE exchange (
+    exchange_id SERIAL PRIMARY KEY,
+    exchange_name VARCHAR(10) UNIQUE NOT NULL);
+
+Instrument table
+CREATE TABLE instrument (
+    instrument_id SERIAL PRIMARY KEY,
+    symbol VARCHAR(50) NOT NULL,
+    instrument_type VARCHAR(10) NOT NULL);
+
+Expiry table
+CREATE TABLE expiry (
+    expiry_id SERIAL PRIMARY KEY,
+    expiry_dt DATE NOT NULL,
+    strike_pr NUMERIC(10,2),
+    option_typ VARCHAR(2));
+
+Trades table
+CREATE TABLE trades (
+    trade_id BIGSERIAL PRIMARY KEY,
+    trade_date DATE NOT NULL,
+    open NUMERIC(10,2),
+    high NUMERIC(10,2),
+    low NUMERIC(10,2),
+    close NUMERIC(10,2),
+    settle_pr NUMERIC(10,2),
+    volume BIGINT,
+    open_int BIGINT,
+    exchange_id INT REFERENCES exchange(exchange_id),
+    instrument_id INT REFERENCES instrument(instrument_id),
+    expiry_id INT REFERENCES expiry(expiry_id));
