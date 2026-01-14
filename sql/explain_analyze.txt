@@ -1,0 +1,21 @@
+EXPLAIN ANALYZE
+SELECT *
+FROM trades
+WHERE trade_date >= CURRENT_DATE - INTERVAL '30 days'
+ORDER BY volume DESC
+LIMIT 100;
+
+--------------------------
+"QUERY PLAN"
+"Limit  (cost=7.83..7.84 rows=1 width=61) (actual time=0.053..0.055 rows=0.00 loops=1)"
+"  Buffers: shared hit=2"
+"  ->  Sort  (cost=7.83..7.84 rows=1 width=61) (actual time=0.051..0.052 rows=0.00 loops=1)"
+"        Sort Key: volume DESC"
+"        Sort Method: quicksort  Memory: 25kB"
+"        Buffers: shared hit=2"
+"        ->  Index Scan using idx_trades_trade_date on trades  (cost=0.30..7.82 rows=1 width=61) (actual time=0.039..0.040 rows=0.00 loops=1)"
+"              Index Cond: (trade_date >= (CURRENT_DATE - '30 days'::interval))"
+"              Index Searches: 1"
+"              Buffers: shared hit=2"
+"Planning Time: 0.409 ms"
+"Execution Time: 0.137 ms"
