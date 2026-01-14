@@ -22,7 +22,7 @@ ORDER BY total_oi_change DESC
 LIMIT 10;
 
 
-
+Output
 ---------------------------
 
 "symbol","total_oi_change"
@@ -36,4 +36,5 @@ LIMIT 10;
 "ADANIPORTS","147500"
 "HDFC","99750"
 "TECHM","76800"
+
 
