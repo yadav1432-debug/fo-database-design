@@ -1,0 +1,11 @@
+Index on trade date for time-series queries
+CREATE INDEX idx_trades_trade_date
+ON trades (trade_date);
+
+Index on instrument for symbol-based analytics
+CREATE INDEX idx_trades_instrument
+ON trades (instrument_id);
+
+Index on exchange for multi-exchange analysis
+CREATE INDEX idx_trades_exchange
+ON trades (exchange_id);
